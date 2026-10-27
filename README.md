@@ -136,6 +136,27 @@ both:
 | Check **Podman** containers | `php2shell-patch-check.sh` |
 | Check **Docker** containers | either |
 
+## Responsible use
+
+Run these only against systems you own or are explicitly authorized to test.
+Unauthorized testing can be illegal and can cause an outage.
+
+- **`php2shell-scanner.py` is an active probe.** It deliberately drives PHP to
+  an out-of-memory condition to detect CVE-2026-109618 and **can crash a
+  worker**. Use it only on authorized targets, prefer off-peak windows, and
+  **do not point it at shared hosting you do not control** — a crashed worker
+  can affect other tenants on the same host. The probe exercises the OOM path
+  only; it is detection, not a weaponized exploit, and ships no code-execution,
+  shell, or file-write payload.
+- **The two on-box scripts are read-only.** `php2shell-local-audit.sh` and
+  `php2shell-patch-check.sh` only read versions and process state and change
+  nothing, so they are the safe choice for production hosts and for anything
+  you cannot risk crashing.
+- Prefer the on-box scripts for your own fleet; keep the network scanner for
+  authorized external verification where you cannot log in.
+- This tooling is provided for defensive security and authorized testing. The
+  authors accept no liability for misuse (see LICENSE).
+
 ## References
 
 - PHP advisories: GHSA-w8hw-w9fx-j79w, GHSA-6wmf-4rv5-p3rp
