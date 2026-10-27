@@ -1,0 +1,12 @@
+# Python virtualenv for the scanner
+.venv/
+__pycache__/
+*.pyc
+
+# Scanner output
+results.json
+*.results.json
+
+# Never commit host inventories or scan output with real targets
+hosts.txt
+*-results.txt
